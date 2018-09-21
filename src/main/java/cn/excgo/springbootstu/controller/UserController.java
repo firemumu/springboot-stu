@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -22,7 +23,7 @@ public class UserController {
      * */
     @PostMapping("/saveOrUpdate")
     public void saveOrUpdateUser(HttpServletResponse response, User user) throws IOException {
-        userRepository.saveOrUpdateUser(user);
+        userRepository.save(user);
         response.sendRedirect("/users/all");
     }
 
@@ -32,7 +33,7 @@ public class UserController {
      * */
     @GetMapping(value = "/delete/{id}")
     public void deleteUserById(@PathVariable("id") Long id, HttpServletResponse response) throws IOException {
-        userRepository.deleteUser(id);
+        userRepository.deleteById(id);
         response.sendRedirect("/users/all");
     }
 
@@ -42,7 +43,7 @@ public class UserController {
      * */
     @RequestMapping("/all")
     public List<User> list() {
-        return userRepository.listUser();
+        return userRepository.findAll();
     }
 
     /**
@@ -52,8 +53,8 @@ public class UserController {
      * */
     @GetMapping("{id}")
     public User getUserById(@PathVariable("id") Long id) {
-        User user = userRepository.getUserById(id);
-        return user;
+        Optional<User> user = userRepository.findById(id);
+        return user.get();
     }
 
 }

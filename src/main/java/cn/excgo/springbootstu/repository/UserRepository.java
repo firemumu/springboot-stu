@@ -1,35 +1,15 @@
 package cn.excgo.springbootstu.repository;
 
 import cn.excgo.springbootstu.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.List;
+import java.io.Serializable;
 
-public interface UserRepository {
+public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User>, Serializable {
 
-    /**
-     * 新增或者修改用户
-     * @param user
-     * @return user
-     * */
-    User saveOrUpdateUser(User user);
-
-    /**
-     * 删除用户
-     * @param id
-     * */
-    void deleteUser(Long id);
-
-    /**
-     * 根据用户id获取用户
-     * @param id
-     * @return User
-     * */
-    User getUserById(Long id);
-
-    /**
-     * 获取所有用户的列表
-     * @return List<User>
-     * */
-    List<User> listUser();
+    // JpaRepository: SpringDataJPA提供的简单数据操作接口
+    // JpaSpecificationExecutor: SpringDataJPA提供的复杂查询接口
+    // Serializable: 序列化接口
 
 }
