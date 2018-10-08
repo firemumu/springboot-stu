@@ -43,7 +43,12 @@ public class UserController {
      * */
     @RequestMapping("/all")
     public List<User> list() {
-        return userRepository.findAll();
+        List<User> lists = userRepository.findAll();
+        User user = new User();
+        user.setId(4l);
+        user.setPassword("123jfldsjfsd");
+        lists.add(user);
+        return lists;
     }
 
     /**
